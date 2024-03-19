@@ -10,7 +10,7 @@ func main() {
 	router := gin.Default()
 
 	// Serve HTML landing page
-	router.LoadHTMLGlob("/Users/aviranmashiach/Documents/go/templates/*.html")
+	router.LoadHTMLGlob("/Users/aviranmashiach/Documents/My_Golang/templates/*.html")
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(200, "index.html", nil)
 	})
