@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input, select, button {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultArea {
+            margin-top: 20px;
+        }
+
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculator App</h1>
+        <p>Enter the numbers and select an operation to calculate:</p>
+        
+        <!-- Form for calculation -->
+        <form id="calculatorForm" action="/calculate" method="post">
+            <label for="num1">Number 1:</label>
+            <input type="text" id="num1" name="num1">
+            
+            <label for="num2">Number 2:</label>
+            <input type="text" id="num2" name="num2">
+            
+            <label for="operation">Operation:</label>
+            <select id="operation" name="operation">
+                <option value="add">Add</option>
+                <option value="subtract">Subtract</option>
+                <option value="multiply">Multiply</option>
+                <option value="divide">Divide</option>
+            </select>
+
+            <button type="submit">Calculate</button>
+        </form>
+        
+        <!-- Result area -->
+        <div id="resultArea" style="display: none;">
+            <h2>Result:</h2>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("calculatorForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get form data
+            var formData = new FormData(event.target);
+            var num1 = parseFloat(formData.get("num1"));
+            var num2 = parseFloat(formData.get("num2"));
+            var operation = formData.get("operation");
+            
+            // Calculate result
+            var result;
+            switch (operation) {
+                case "add":
+                    result = num1 + num2;
+                    break;
+                case "subtract":
+                    result = num1 - num2;
+                    break;
+                case "multiply":
+                    result = num1 * num2;
+                    break;
+                case "divide":
+                    if (num2 !== 0) {
+                        result = num1 / num2;
+                    } else {
+                        alert("Error: Division by zero!");
+                        return;
+                    }
+                    break;
+            }
+            
+            // Display result
+            document.getElementById("result").textContent = result;
+            document.getElementById("resultArea").style.display = "block";
+        });
+    </script>
+</body>
+</html>
